@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { connectDB } from './config/db.js';
+import { bootstrapData } from './config/bootstrap.js';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
@@ -18,4 +19,4 @@ app.get('/api/health', (req, res) => res.json({ message: 'ElectroMart API runnin
 app.use('/api/auth', authRoutes); app.use('/api/products', productRoutes); app.use('/api/orders', orderRoutes); app.use('/api/users', userRoutes); app.use('/api/reports', reportRoutes);
 app.use((err, req, res, next) => { console.error(err); res.status(500).json({ message: 'Server error' }); });
 const PORT = process.env.PORT || 5000;
-connectDB().then(() => app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`)));
+connectDB().then(bootstrapData).then(() => app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`)));
