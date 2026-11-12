@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const hosts = [process.env.RAILWAY_PUBLIC_DOMAIN].filter(Boolean);
+// healthcheck.railway.app is the Host header Railway's healthcheck sends.
+const hosts = [process.env.RAILWAY_PUBLIC_DOMAIN, 'healthcheck.railway.app'].filter(Boolean);
 
 export default defineConfig({
   plugins: [react()],
